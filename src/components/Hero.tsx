@@ -1,9 +1,17 @@
 import { Mail, MapPin, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTypewriter } from '@/hooks/useTypewriter';
 
 export const Hero = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const name = useTypewriter({ text: 'Aymen Mattoussi', speed: 100, delay: 500 });
+  const role = useTypewriter({ 
+    text: language === 'fr' ? 'Ingénieur Logiciel & Support IT' : 'Software Engineer & IT Support', 
+    speed: 60, 
+    delay: 2000 
+  });
 
   const scrollToContact = () => {
     const element = document.getElementById('contact');
@@ -20,11 +28,15 @@ export const Hero = () => {
             <p className="text-lg text-muted-foreground font-['Inter']">
               {t('hero.greeting')}
             </p>
-            <h1 className="text-5xl md:text-7xl font-bold font-['Space_Grotesk']">
-              Aymen <span className="gradient-text">Mattoussi</span>
+            <h1 className="text-5xl md:text-7xl font-bold font-['Space_Grotesk'] min-h-[80px] md:min-h-[100px]">
+              <span className="gradient-text">
+                {name.displayedText}
+                <span className="animate-pulse">|</span>
+              </span>
             </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground font-['Space_Grotesk']">
-              {t('hero.role')}
+            <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground font-['Space_Grotesk'] min-h-[40px] md:min-h-[48px]">
+              {role.displayedText}
+              {role.isComplete && <span className="animate-pulse ml-1">|</span>}
             </h2>
           </div>
 
